@@ -66,7 +66,7 @@ end
                 a = u;                                               % the complete tree is obtain when l_min=0 and for any value     
                 tau_a = tau_u; p_a = p_u;                            % greater than zero, a tree different from the complete tree is obtained   
                 u = (l_min + u)/2;                                      
-                [tau_u, p_u] = estimate_contexttree(X, A, max_height, 'bic', u, {T, I}, TEST);   
+                [tau_u, p_u] = estimate_contexttree(X, A, max_height, 'bic', u, {T, I}, TEST);
             end
             l_min = u; tau_l = tau_u;
             u = a; tau_u = tau_a; p_u = p_a;
@@ -79,4 +79,5 @@ end
         tau_u = tau_upper;  
         p_u = p_upper;
     end
+    printf('ok')
 end

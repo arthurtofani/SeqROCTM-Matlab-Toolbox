@@ -39,7 +39,7 @@ c_min 		= 0;				% minimum value of the BIC constant
 c_max 		= 500;				% maximum value of the BIC constant
 
 % fix the seed if you want to control random generations
-rng(200);
+rand(200);
 
 %%% Simulations %%%%
 
@@ -75,7 +75,7 @@ for r = 1 : Repetitions
         % we call the same procedure using different bootstrap strategies
         
 		% bootstrap using an a priori known renewal point (this is the strategy used in the article)
-		[~, id_G1] = modeltunning_championTrees(trees, A, n1, n2, alpha, B, 'blocks', X, th_renwpoint);
+		[~, id_G1, rrr] = modeltunning_SMC(trees, A, n1, n2, alpha, B, 'blocks', X, th_renwpoint);
         
 		% bootstrap finding a renewal point of the largest model in the Champion Trees 
         renewalpoint = tree_renewalpoint(trees{1}, Ps{1}', A, X);

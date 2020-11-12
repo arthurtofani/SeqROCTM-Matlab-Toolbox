@@ -84,6 +84,12 @@ t = nTrees;
 while (pvalue > alpha)&&(t > 1)
     t = t - 1;
     [~, pvalue] = ttest2(diff_n1(t,:), diff_n2(t,:), 'Alpha', alpha, 'Tail', 'right');
+    dlmwrite('/home/arthur/Documents/Neuromat/projects/SMC/arquivo/n1.txt', diff_n1(t,:), 'delimiter','\n', 'newline','pc','precision',13);
+    dlmwrite('/home/arthur/Documents/Neuromat/projects/SMC/arquivo/n2.txt', diff_n2(t,:), 'delimiter','\n', 'newline','pc','precision',13);
+    printf(pvalue)
+    xx = 0;
+    xx = xx+1;
+    
 end
 idx = t+1;
 opt_tree = championTrees{idx};
