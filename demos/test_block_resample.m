@@ -1,11 +1,4 @@
-A = [0,1];
-contexts  = {1,  [1 0], [1 0 0], [0 0 0]};
-P = [1, 0; 0.3, 0.7; 0.2, 0.8; 0.25, 0.75];
-n       = 5000;        % length of the stochastic sequence
-max_height  = 6;        % height of the complete tree
-
-% fix the seed if you want to control random generations
-
+function r = test_block_resample(sz)
 % rng(200);
 rand('seed', 200); % change to the line above if this statement doesn't work on matlab
 # X = generatesampleCTM(contexts, P, A, n);
@@ -15,11 +8,30 @@ rand('seed', 200); % change to the line above if this statement doesn't work on 
 % pls ensure it first
 #X_str = num2str(X, "%i");
 
-spath = '/home/arthur/Documents/Neuromat/projects/SMC/smallest_maximizer_criterion/examples/example2/samples/model1_5000.mat';
-M = getfield(load(spath), 'model1_5000');
-pkg load dataframe
-idx = 98
-X = M(idx,:);
+
+
+renewal_point =  1;
+model = "model1";
+spath = "/home/arthur/Documents/Neuromat/projects/SMC/smallest_maximizer_criterion/examples/example2/samples/";
+spath = strcat(spath, model, '_', num2str(sz), '.mat');
+M = getfield(load(spath), strcat(model, '_', num2str(sz)));
+
+#for sz = [5000 10000 20000]
+	for n = 1:100
+		for b = 1:200
+			folder = strcat("/home/arthur/tmp/samples/", num2str(sz), "/", num2str(n));
+			filename = strcat(folder, "/", num2str(b), ".txt")
+			X = M(n,:);
+			B = bootstrap_blocks(X, renewal_point, sz, b);
+			if ~exist(folder, 'dir')
+       			mkdir(folder)
+    		end
+			fid = fopen (filename, "w");
+			fputs (fid, strrep(num2str(B(1, :)), ' ', ''));
+			fclose (fid);
+		end
+	end
+#end
 
 
 
