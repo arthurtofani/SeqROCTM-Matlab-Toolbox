@@ -1,6 +1,12 @@
 csv_file = "/home/arthur/Documents/Neuromat/projects/SMC/smallest_maximizer_criterion/examples/example2/results/SeqROCTM/2/model1_5000.csv";
 sample_folder = "/home/arthur/Documents/Neuromat/projects/SMC/smallest_maximizer_criterion/examples/example2/results/SeqROCTM/2/model1_5000";
 header = "model_name,sample_idx,method,tree_idx,tree,num_contexts,likelihood,opt\n";
+
+
+#csv_file = "/var/tmp/tofani/smc/data/model1_5000.csv"
+#sample_folder = "/var/tmp/tofani/smc/data/samples";
+
+
 time_file = strcat(csv_file, ".time.txt")
 fid = fopen(csv_file, "wb");
 fputs(fid, header);
@@ -120,18 +126,18 @@ t = nTrees;
     col_likelihood = num2str(ML(i));
     ss = strcat(ss, ", ", col_likelihood);
     col_opt = num2str(i == idx);
-    ss = strcat(ss, ", ", col_opt );
+    ss = strcat(ss, ", ", col_opt, "\n" );
     
     ss
     fid = fopen(csv_file, "a");
     fputs(fid, ss);
     fclose(fid);
-    
-    fid = fopen(time_file, "a");
-    tt = num2str(t2 - t1)
-    fputs(fid, strcat(tt, "\n"));
-    fclose(fid);
   end
+  fid = fopen(time_file, "a");
+  tt = num2str(t2 - t1)
+  fputs(fid, strcat(tt, "\n"));
+  fclose(fid);
+
 end
 #folder = "/home/arthur/tmp/out"
 #csv_file = "/home/arthur/Documents/Neuromat/projects/SMC/smallest_maximizer_criterion/examples/example2/results/SeqROCTM/2/model1_5000.csv"
